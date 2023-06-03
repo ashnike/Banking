@@ -1,0 +1,32 @@
+- hosts: test-server
+  become: true
+  tasks:
+    - name: Update apt
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Start Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Stop container
+      command: docker stop banking
+      ignore_errors: true
+
+    - name: Remove container
+      command: docker rm banking
+      ignore_errors: true
+
+    - name: Deploy insurance application
+      command: docker run -itd -p 8081:8081 --name banking ashnike/banking:1.0
+
+    - name: Start docker application
+      command: docker start banking
