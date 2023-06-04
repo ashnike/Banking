@@ -11,7 +11,6 @@ resource "aws_instance" "my_instance" {
   associate_public_ip_address = false
   subnet_id              = "subnet-0562d4cfa17651f09"
   vpc_security_group_ids = ["sg-0924a40823e9bfc02"]
-  vpc_id                 = "vpc-0d32271ecfc781ab6"
 
   tags = {
     Name = "terra-test"
